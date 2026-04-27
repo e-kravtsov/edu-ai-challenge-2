@@ -1,0 +1,503 @@
+/* === RESET & BASE === */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* === MAIN CONTAINER === */
+.leaderboard {
+  background: rgb(248, 250, 252);
+  color: rgb(15, 23, 42);
+  min-height: 100vh;
+  padding: 24px;
+}
+
+/* === HEADER === */
+.header {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto 32px;
+  max-width: 1200px;
+}
+.headerContent { flex: 1; }
+.headerContent h2 {
+  color: rgb(15, 23, 42);
+  font-size: 30px;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+.headerContent p {
+  color: rgb(100, 116, 139);
+  font-size: 14px;
+  margin: 0;
+}
+
+/* === FILTER BAR === */
+.filterBar {
+  align-items: center;
+  background: rgb(255, 255, 255);
+  border: 1px solid rgb(226, 232, 240);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+  margin: 0 auto 24px;
+  max-width: 1200px;
+  padding: 20px 24px;
+}
+.filters { display: flex; flex-wrap: wrap; gap: 12px; }
+
+.selectWrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.selectWrapper select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: rgb(235, 235, 237);
+  border: 1px solid rgb(55, 55, 55);
+  border-radius: 2px;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 400;
+  height: 32px;
+  padding: 0 28px 0 8px;
+  outline: none;
+  font-family: inherit;
+}
+.selectWrapper select:focus {
+  border-color: rgb(0, 0, 0);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0);
+}
+.selectIcon {
+  position: absolute;
+  right: 8px;
+  pointer-events: none;
+  color: rgb(55, 55, 55);
+  font-size: 14px;
+}
+
+.search {
+  flex: 1;
+  min-width: 250px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgb(235, 235, 237);
+  border: 1px solid rgb(55, 55, 55);
+  border-radius: 2px;
+  height: 32px;
+}
+.searchIcon {
+  position: absolute;
+  left: 8px;
+  color: rgb(55, 55, 55);
+  font-size: 16px;
+  pointer-events: none;
+  transition: opacity 0.15s, transform 0.15s;
+}
+.search:focus-within .searchIcon {
+  opacity: 0;
+  transform: translateX(-8px);
+}
+.search input {
+  width: 100%;
+  padding: 0 8px 0 32px;
+  border: none;
+  border-radius: 2px;
+  background: transparent;
+  font-size: 14px;
+  height: 100%;
+  outline: none;
+  font-family: inherit;
+  color: rgb(0, 0, 0);
+}
+.search input::placeholder { color: rgb(100, 100, 100); }
+.search:focus-within input { padding-left: 8px; }
+.search:focus-within {
+  border-color: rgb(0, 0, 0);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0);
+}
+
+/* === PODIUM === */
+.podium {
+  align-items: flex-end;
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin: 0 auto 64px;
+  max-width: 900px;
+  padding: 32px 8px;
+}
+.podiumColumn {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  max-width: 280px;
+  position: relative;
+  width: 100%;
+}
+.podiumColumn.podiumRank1 { margin-top: -32px; order: 2; }
+.podiumColumn.podiumRank2 { order: 1; }
+.podiumColumn.podiumRank3 { order: 3; }
+
+.podiumUser {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 10;
+}
+.podiumAvatarContainer { margin-bottom: 12px; position: relative; }
+.podiumAvatar {
+  align-items: center;
+  background-position: center;
+  background-size: cover;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  color: rgb(255, 255, 255);
+  display: flex;
+  font-weight: 700;
+  justify-content: center;
+}
+
+
+.podiumRank1 .podiumAvatar {
+  background-color: rgb(134, 239, 172);
+  border: 4px solid rgb(251, 191, 36);
+  color: rgb(22, 101, 52);
+}
+.podiumRank2 .podiumAvatar {
+  background-color: rgb(203, 213, 225);
+  border: 4px solid rgb(255, 255, 255);
+  color: rgb(30, 41, 59);
+}
+.podiumRank3 .podiumAvatar {
+  background-color: rgb(94, 234, 212);
+  border: 4px solid rgb(255, 255, 255);
+  color: rgb(19, 78, 74);
+}
+
+/* Rank badges */
+.podiumRankBadge {
+  align-items: center;
+  border: 4px solid rgb(255, 255, 255);
+  border-radius: 50%;
+  bottom: -8px;
+  color: rgb(255, 255, 255);
+  display: flex;
+  font-weight: 700;
+  justify-content: center;
+  position: absolute;
+  right: -4px;
+}
+.podiumRank1 .podiumRankBadge { background: rgb(234, 179, 8); font-size: 18px; }
+.podiumRank2 .podiumRankBadge { background: rgb(148, 163, 184); font-size: 14px; }
+.podiumRank3 .podiumRankBadge { background: rgb(146, 64, 14); font-size: 14px; }
+
+/* Podium text */
+.podiumName { color: rgb(15, 23, 42); font-size: 20px; font-weight: 700; margin: 0 0 4px; text-align: center; }
+.podiumRank1 .podiumName { font-size: 24px; }
+.podiumRole { color: rgb(100, 116, 139); font-size: 14px; font-weight: 500; margin: 0 0 8px; text-align: center; }
+
+/* Podium score pill */
+.podiumScore {
+  align-items: center;
+  background: rgb(255, 255, 255);
+  border: 1px solid rgb(226, 232, 240);
+  border-radius: 20px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  display: flex;
+  font-size: 18px;
+  font-weight: 700;
+  gap: 6px;
+  padding: 6px 16px;
+  color: rgb(14, 165, 233);
+}
+.podiumScore svg { font-size: 16px; }
+.podiumRank1 .podiumScore {
+  background: rgb(254, 249, 195);
+  border-color: rgb(253, 224, 71);
+  color: rgb(202, 138, 4);
+  font-size: 20px;
+  padding: 8px 20px;
+}
+.podiumRank1 .podiumScore svg { font-size: 18px; }
+
+/* Podium blocks */
+.podiumBlock {
+  align-items: flex-start;
+  background: linear-gradient(rgb(226, 232, 240), rgb(203, 213, 225));
+  border-radius: 12px 12px 0 0;
+  border-top: 2px solid rgb(203, 213, 225);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  padding-top: 16px;
+  position: relative;
+  width: 100%;
+}
+.podiumRank1 .podiumBlock {
+  background: linear-gradient(rgb(254, 243, 199), rgb(253, 230, 138));
+  border-top-color: rgb(253, 224, 71);
+  height: 178px;
+}
+.podiumRank2 .podiumBlock { height: 146px; }
+.podiumRank3 .podiumBlock { height: 114px; }
+
+.podiumRankNumber {
+  color: rgba(148, 163, 184, 0.2);
+  font-size: 96px;
+  font-weight: 900;
+  user-select: none;
+}
+.podiumRank1 .podiumRankNumber { color: rgba(234, 179, 8, 0.2); font-size: 112px; }
+.podiumRank3 .podiumRankNumber { top: -16px; position: relative; }
+
+/* === LIST === */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+.userRowContainer {
+  background: rgb(255, 255, 255);
+  border: 1px solid rgb(226, 232, 240);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+.userRowContainer:hover { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
+.userRowContainer.expanded { border-color: rgb(14, 165, 233); }
+
+.row { padding: 20px 24px; }
+.rowMain { align-items: center; display: flex; gap: 16px; justify-content: space-between; }
+.rowLeft { align-items: center; display: flex; flex: 1; gap: 24px; }
+.rank { color: rgb(148, 163, 184); font-size: 24px; font-weight: 700; min-width: 32px; text-align: center; }
+.avatar {
+  align-items: center;
+  background-color: rgb(251, 191, 36);
+  background-position: center;
+  background-size: cover;
+  border-radius: 50%;
+  color: rgb(255, 255, 255);
+  display: flex;
+  flex-shrink: 0;
+  font-size: 20px;
+  font-weight: 700;
+  height: 56px;
+  justify-content: center;
+  width: 56px;
+}
+.info { display: flex; flex: 1; flex-direction: column; gap: 4px; }
+.name { color: rgb(15, 23, 42); font-size: 18px; font-weight: 700; margin: 0; }
+.role { color: rgb(100, 116, 139); font-size: 14px; }
+
+.rowRight { align-items: center; display: flex; gap: 24px; }
+.categoryStats { align-items: center; display: flex; gap: 24px; }
+.categoryStat { align-items: center; display: flex; flex-direction: column; gap: 4px; }
+.categoryStatIcon { color: rgb(14, 165, 233); font-size: 20px; }
+.categoryStatCount { color: rgb(71, 85, 105); font-size: 12px; font-weight: 600; }
+
+.totalSection {
+  align-items: flex-end;
+  border-left: 1px solid rgb(226, 232, 240);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-left: 24px;
+}
+.totalLabel { color: rgb(148, 163, 184); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+.score { align-items: center; color: rgb(14, 165, 233); display: flex; font-size: 24px; font-weight: 700; gap: 6px; }
+.score svg { font-size: 28px; }
+
+.expandButton {
+  align-items: center;
+  background: rgb(241, 245, 249);
+  border: none;
+  border-radius: 50%;
+  color: rgb(14, 165, 233);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  padding: 8px;
+  transition: background 0.2s;
+}
+.expandButton:hover { background: rgb(226, 232, 240); }
+.userRowContainer.expanded .expandButton { background: rgb(224, 242, 254); }
+
+/* === EXPANDED DETAILS === */
+.details { background: rgb(248, 250, 252); border-top: 1px solid rgb(226, 232, 240); padding: 24px; }
+.detailsTitle {
+  color: rgb(100, 116, 139);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  margin: 0 0 16px;
+  text-transform: uppercase;
+}
+.tableWrapper { overflow-x: auto; }
+
+.activityTable { border-collapse: collapse; width: 100%; }
+.activityTable thead tr { border-bottom: 2px solid rgb(226, 232, 240); }
+.activityTable thead th {
+  color: rgb(100, 116, 139);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 12px 8px;
+  text-align: left;
+  text-transform: uppercase;
+}
+.activityTable thead th:last-child { text-align: right; }
+.activityTable tbody tr { transition: background 0.2s; }
+.activityTable tbody tr:hover { background: rgb(241, 245, 249); }
+.activityTable tbody td { border-bottom: 1px solid rgb(226, 232, 240); font-size: 14px; padding: 16px 8px; }
+.activityTable tbody tr:last-child td { border-bottom: none; }
+
+.activityName { color: rgb(30, 41, 59); font-weight: 600; }
+.categoryBadge { border-radius: 12px; display: inline-flex; font-size: 12px; font-weight: 600; padding: 4px 12px; white-space: nowrap; }
+.categoryBadge.categoryDefault { background: rgb(226, 232, 240); color: rgb(71, 85, 105); }
+.categoryBadge.categoryTraining { background: rgb(219, 234, 254); color: rgb(30, 64, 175); }
+.categoryBadge.categoryContribution { background: rgb(243, 232, 255); color: rgb(107, 33, 168); }
+.categoryBadge.categoryCommunity { background: rgb(220, 252, 231); color: rgb(22, 101, 52); }
+
+.activityDate { color: rgb(100, 116, 139); white-space: nowrap; }
+.activityPoints { color: rgb(14, 165, 233); font-weight: 700; text-align: right; }
+
+/* === MOBILE FILTER PANEL === */
+.mobileOnly { display: none; }
+.filterButton {
+  appearance: none;
+  background: rgb(235, 235, 237);
+  border: 1px solid rgb(55, 55, 55);
+  border-radius: 2px;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  height: 32px;
+  padding: 0 28px 0 8px;
+  position: relative;
+  text-align: left;
+}
+.filterButton .selectIcon {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: rgb(55, 55, 55);
+  font-size: 14px;
+}
+.panelOverlay {
+  background: rgba(0, 0, 0, 0.4);
+  inset: 0;
+  position: fixed;
+  z-index: 999;
+}
+.filterPanel {
+  background: rgb(255, 255, 255);
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-width: 320px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 75vw;
+  z-index: 1000;
+}
+.filterPanelHeader {
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px 16px;
+}
+.filterPanelClose {
+  background: none;
+  border: none;
+  color: rgb(100, 116, 139);
+  cursor: pointer;
+  padding: 4px;
+}
+.filterPanelClose:hover { color: rgb(15, 23, 42); }
+.filterPanelOptions {
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px;
+}
+.filterPanelOption {
+  background: none;
+  border: none;
+  color: rgb(15, 23, 42);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 16px;
+  padding: 12px 8px;
+  text-align: left;
+}
+.filterPanelOption:hover { background: rgb(241, 245, 249); }
+.filterPanelOptionActive { color: rgb(14, 165, 233); font-weight: 600; }
+
+/* === RESPONSIVE — MOBILE (<= 768px) === */
+@media (max-width: 768px) {
+  .leaderboard { padding: 16px; }
+
+  .header { margin-bottom: 20px; }
+  .headerContent h2 { font-size: 24px; }
+
+  /* Filter bar stacks vertically */
+  .filterBar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 16px;
+    gap: 12px;
+  }
+  .filters { flex-direction: column; align-items: flex-start; }
+  .search { min-width: unset; height: 32px; align-self: stretch; flex: none; }
+
+  /* Podium stacks vertically */
+  .podium {
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    padding: 24px 8px;
+    margin-bottom: 32px;
+  }
+  .podiumColumn { max-width: 280px; }
+  .podiumColumn.podiumRank1 { order: 1; margin-top: 0; }
+  .podiumColumn.podiumRank2 { order: 2; }
+  .podiumColumn.podiumRank3 { order: 3; }
+  .podiumRank1 .podiumBlock { height: 160px; }
+  .podiumRank2 .podiumBlock { height: 128px; }
+  .podiumRank3 .podiumBlock { height: 96px; }
+
+  /* List rows go vertical */
+  .rowMain { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .rowRight { width: 100%; justify-content: space-between; border-top: 1px solid rgb(226, 232, 240); padding-top: 12px; }
+  .totalSection { display: none; }
+  .row { padding: 16px; }
+  .rank { font-size: 20px; }
+  .name { font-size: 16px; }
+}
+
+/* === RESPONSIVE — SMALL MOBILE (<= 639px) === */
+@media (max-width: 639px) {
+  .desktopOnly { display: none; }
+  .mobileOnly { display: block; }
+}
