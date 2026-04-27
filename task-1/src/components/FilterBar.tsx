@@ -35,12 +35,6 @@ const categoryOptions: FilterOption[] = [
 
 type PanelKey = 'year' | 'quarter' | 'category' | null;
 
-const labels: Record<string, string> = {
-  year: 'Year',
-  quarter: 'Quarter',
-  category: 'Category',
-};
-
 function getOptions(key: PanelKey): FilterOption[] {
   if (key === 'year') return yearOptions;
   if (key === 'quarter') return quarterOptions;

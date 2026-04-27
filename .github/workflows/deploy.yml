@@ -1,0 +1,54 @@
+name: Deploy Leaderboard to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'task-1/**'
+      - '.github/workflows/deploy.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: task-1/package-lock.json
+
+      - name: Install dependencies
+        working-directory: task-1
+        run: npm ci
+
+      - name: Build
+        working-directory: task-1
+        run: npm run build
+
+      - name: Prepare deployment
+        run: |
+          mkdir -p _site/leaderboard
+          cp -r task-1/dist/* _site/leaderboard/
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
